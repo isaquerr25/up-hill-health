@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  @apply bg-[white];
+}
+
+.inputRounded .MuiOutlinedInput-root {
+  @apply !rounded-full;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  @apply !rounded-full;
+}
+
+.MuiTextField-root {
+  @apply !rounded-full;
+  background: white;
+}
+
+.darker {
+  backdrop-filter: blur(10px);
+}
+
+.layer {
+  background-color: rgba(11, 30, 46, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.layer-little {
+  background-color: rgba(11, 30, 46, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+}
+
+h3 {
+  @apply text-[1.8rem] font-semibold;
+}
+
+.dividerCards {
+  @apply flex flex-row justify-between items-center w-[100%];
+}
