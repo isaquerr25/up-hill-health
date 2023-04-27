@@ -27,7 +27,7 @@ function debounce(func, wait, immediate) {
 const Header = () => {
   const { setSearch } = useContext(SearchContext);
   return (
-    <div className="flex justify-between items-center h-[5rem] bg-[#2E3A53] px-[17rem] ">
+    <nav className="flex justify-between items-center h-[5rem] bg-[#2E3A53] px-[17rem] ">
       <Image
         src={logo}
         alt="Logo UPHILLHEALTH"
@@ -47,7 +47,7 @@ const Header = () => {
           ),
         }}
       />
-    </div>
+    </nav>
   );
 };
 

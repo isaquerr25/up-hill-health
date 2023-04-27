@@ -3,6 +3,9 @@ import moment from 'moment';
 
 export const api = axios.create({
   baseURL: 'https://api.github.com/',
+  headers: {
+    Authorization: `Bearer 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`,
+  },
 });
 
 export const getUserData = ({ queryKey }) => {
@@ -63,4 +66,17 @@ export const getTopRepositories = ({ queryKey }) => {
   return api
     .get('/search/repositories', { params, headers })
     .then((response) => response.data);
+};
+
+export const getMostPopularRepositoryByUser = ({ queryKey }) => {
+  const [_, { user }] = queryKey;
+
+  return api
+    .get(`/users/${user}/repos`)
+    .then(
+      (response) =>
+        response.data.sort(
+          (a, b) => b.stargazers_count - a.stargazers_count,
+        )[0],
+    );
 };

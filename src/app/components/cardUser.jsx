@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import StarsIcon from '@mui/icons-material/Stars';
-import { getUserData } from '../../api';
+import { getMostPopularRepositoryByUser, getUserData } from '../../api';
 import Image from 'next/image';
 
 const CardUser = ({ username, isError }) => {
@@ -14,7 +14,19 @@ const CardUser = ({ username, isError }) => {
     queryFn: getUserData,
   });
 
+  const {
+    data: dataCard,
+    error: errorCard,
+    isLoading: isLoadingCard,
+  } = useQuery({
+    queryKey: ['repoDataCardUser', { user: username }],
+    queryFn: getMostPopularRepositoryByUser,
+  });
+
+  if (isLoading) return <div>Carregando</div>;
+  if (isLoadingCard) return <div>Carregando</div>;
   if (!data) return <div></div>;
+  if (!dataCard) return <div></div>;
 
   const {
     name,
@@ -81,7 +93,7 @@ const CardUser = ({ username, isError }) => {
       
       `}
       >
-        {name}
+        {username}
       </h4>
       <h4
         className={` font-bold  text-[1.2rem] text-center z-[2]
@@ -103,15 +115,22 @@ const CardUser = ({ username, isError }) => {
       {!isShown ? (
         <div className="flex flex-col justify-between px-[0.5rem] py-[1rem] rounded-md w-[17rem] h-[5.5rem] border-[2px] border-l-[8px] border-[#214cbb] mx-[auto]">
           <div className=" flex justify-between text-[#214cbb] font-bold">
-            <p className=" "> Hell Word</p>
+            <p className=" ">
+              {' '}
+              {(dataCard?.name ?? '').length > 10
+                ? `${(dataCard?.name ?? '')?.slice(0, 10)}...`
+                : dataCard?.name ?? ''}{' '}
+            </p>
             <div className="flex gap-2">
               <StarsIcon color="#214cbb" />
-              <p>54</p>
+              <p> {dataCard?.stargazers_count ?? ''}</p>
             </div>
           </div>
           <p className={'text-[gray] font-semibold'}>
             {' '}
-            This is my hello world project!{' '}
+            {(dataCard?.description ?? '').length > 25
+              ? `${(dataCard?.description ?? '')?.slice(0, 25)}...`
+              : dataCard?.description ?? ''}{' '}
           </p>
         </div>
       ) : (

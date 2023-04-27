@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import StarsIcon from '@mui/icons-material/Stars';
-import { getRepoData } from '../../api';
+import { getMostPopularRepositoryByUser, getRepoData } from '../../api';
 import { useQuery } from '@tanstack/react-query';
 
 const CardProject = ({ fullName }) => {
@@ -10,6 +10,7 @@ const CardProject = ({ fullName }) => {
     queryKey: ['repoData', { fullName }],
     queryFn: getRepoData,
   });
+
   useEffect(() => {
     console.log(data);
   }, [data]);

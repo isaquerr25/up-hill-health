@@ -3,6 +3,10 @@ describe('Home component', () => {
     cy.visit('http://localhost:3000/');
   });
 
+  it(' nav visible', () => {
+    cy.get('nav').should('be.visible');
+  });
+
   it('renders the trending users section', () => {
     cy.get('h3').contains('Trending Users');
     cy.get('.dividerCards', { timeout: 10000 }).eq(0).should('be.visible');
